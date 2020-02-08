@@ -1,2 +1,2 @@
 # Optimization
-A teaching demonstration of the Numerical Optimization course.
+A teaching demonstration for the Numerical Optimization course.
