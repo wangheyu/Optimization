@@ -20,7 +20,7 @@ $$
 最小二乘问题的背景应用是大家熟悉的，最典型的一个应用就是上面提到的数据回归或函数拟合。这里强调一下$f$取这种形式的优点在于我们可以将向量函数
 $$
 \begin{equation}
-r(x) = \left(r_1(x), r_2(x), \cdots, r_m(x)\right)
+r(x) = \left(r_1(x), r_2(x), \cdots, r_m(x)\right)^T
 \tag{10.2}
 \end{equation}
 $$
