@@ -356,7 +356,7 @@ $$
 $$
 于是
 $$
-\nabla_x L(x, \lambda) = \left[\begin{array}{c}1\\1\end{array}\right] - \left[\begin{array}{c}\lambda_1\cdot(-2\sqrt{2})\\0\end{array}\right] - \left[\begin{array}{c}0\\\lambda_2\end{array}\right] \Rightarrow \left\{\begin{array}{rcl}\lambda_1 &=& -\frac{1}{2\sqrt{2}},\\\lambda_2 &=& 0.\end{array}\right.
+\nabla_x L(x, \lambda) = \left[\begin{array}{c}1\\1\end{array}\right] - \left[\begin{array}{c}\lambda_1\cdot(-2\sqrt{2})\\0\end{array}\right] - \left[\begin{array}{c}0\\\lambda_2\end{array}\right] = \left[\begin{array}c0\\0\end{array}\right] \Rightarrow \left\{\begin{array}{rcl}\lambda_1 &=& -\frac{1}{2\sqrt{2}},\\\lambda_2 &=& 0.\end{array}\right.
 $$
 不满足条件(12.26)。
 
