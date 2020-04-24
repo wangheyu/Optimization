@@ -417,7 +417,7 @@ c_i(x^*) &\geq& 0, \quad\forall i \in \mathcal{I}, \tag{12.34c}\\
 \lambda_i^*\cdot c_i(x^*) &=& 0, \quad \forall i \in \mathcal{E} \cup\mathcal{I}. \tag{12.34e}
 \end{eqnarray}
 $$
-条件(12.34)称为Karush-Kuhn-Tucker条件，即KKT条件。由互补性条件(12.34e)知，当$i \in \mathcal{A}(x)$时，相应的$\lambda_i^*$必为零，因此我们可以把(12.34a)改写为
+条件(12.34)称为Karush-Kuhn-Tucker条件，即KKT条件。由互补性条件(12.34e)知，当$i \notin \mathcal{A}(x^*)$时，相应的$\lambda_i^*$必为零，因此我们可以把(12.34a)改写为
 $$
 \begin{equation}
 0 = \nabla_xL(x^*, \lambda^*) = \nabla f(x^*) - \sum_{i \in \mathcal{A}(x^*)} \lambda_i^*\nabla c_i(x^*). \tag{12.35}
