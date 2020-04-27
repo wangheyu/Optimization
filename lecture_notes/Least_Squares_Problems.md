@@ -374,7 +374,7 @@ $$
 
 如果我们把所有的Givens变换的算子叠加作用都用$\bar{Q}_\lambda$表示，那么有
 $$
-\bar{Q}_\lambda\left[\begin{array}{c}R\\0\\ \sqrt{\lambda}I\end{array}\right]=\left[\begin{array}{c}R_\lambda \\ 0\\ 0\end{array}\right],
+\bar{Q}_\lambda^T\left[\begin{array}{c}R\\0\\ \sqrt{\lambda}I\end{array}\right]=\left[\begin{array}{c}R_\lambda \\ 0\\ 0\end{array}\right],
 $$
 而最终完成了(10.36)的分解，其中
 $$
