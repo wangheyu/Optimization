@@ -259,7 +259,7 @@ $$
 $$
 但它的计算量实际和
 $$
-\nabla f_k = J^Tr_k
+\nabla f_k = J_k^Tr_k
 $$
 相当。
 
