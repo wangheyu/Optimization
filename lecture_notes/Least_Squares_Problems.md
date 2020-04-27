@@ -466,7 +466,7 @@ $$
 
 好在(10.46)的Jacobi矩阵是有特殊结构可以在CG或LM方法中加以利用的。注意到
 $$
-\frac{\partial r_j}{\partial \delta_j} = \frac{\partial \left[\phi(x;t_j + \delta_j) - y_j\right]}{\partial \delta_j} = 0, i, j = 1, 2, \cdots, m, i \neq j,
+\frac{\partial r_j}{\partial \delta_i} = \frac{\partial \left[\phi(x;t_j + \delta_j) - y_j\right]}{\partial \delta_i} = 0, i, j = 1, 2, \cdots, m, i \neq j,
 $$
 且
 $$
