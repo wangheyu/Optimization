@@ -450,15 +450,15 @@ $$
 要解决上述问题，我们实际上需要求解的无约束问题如下（其实一直有一点超纲，这些都是约束优化的方法）：
 $$
 \begin{equation}
-\min_{x, \delta} F(x, \delta)=\frac12\sum_{j = 1}^m w_j^2\left[y_j - \phi(x;t_j + \delta_j)\right]^2 + d_j^2\delta_j^2:=\frac12\sum_{j = 1}^{2m}r_j^2(x, \delta),
+\min_{x, \delta} F(x, \delta)=\frac12\sum_{j = 1}^m w_j^2\left[y_j - \phi(x;t_j + \delta_j)\right]^2 + d_j^2\delta_j^2=\frac12\sum_{j = 1}^{2m}r_j^2(x, \delta),
 \tag{10.46}
 \end{equation}
 $$
 其中$\delta = (\delta_1, \delta_2, \cdots, \delta_m)^T$，以及
 $$
 \begin{equation}
-r_j(x, \delta) = \left\{\begin{array}{rr}w_j\left[\phi(x; t_j + \delta_j) - y_j\right], &j = 1, 2, \cdots, m.\\
-d_{j - m}\delta_{j - m}, & j = m + 1, \cdots, 2m.\end{array}\right.
+r_j(x, \delta) = \begin{cases}w_j\left[\phi(x; t_j + \delta_j) - y_j\right], &j = 1, 2, \cdots, m.\\
+d_{j - m}\delta_{j - m}, & j = m + 1, \cdots, 2m.\end{cases}
 \tag{10.47}
 \end{equation}
 $$
