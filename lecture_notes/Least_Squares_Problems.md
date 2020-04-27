@@ -418,7 +418,7 @@ S_k = \sum_{j = 1}^mr_j(x_k)\nabla^2 r_j(x_k)
 $$
 展开类似拟Newton方法的递推估计，比如Dennis, Gay 和 Welsch [90]给出的公式如下：
 $$
-S_{k + 1} = S_k + \frac{\left(y^\#-S_ks\right)y^T+y\left(y^\# - S_ks\right)^T}{y^Ts} - \frac{\left(y^\# - S_ks\right)^Ts}{\left(y^Ts\right)^2}\tag{10.43}
+S_{k + 1} = S_k + \frac{\left(y^\#-S_ks\right)y^T+y\left(y^\# - S_ks\right)^T}{y^Ts} - \frac{\left(y^\# - S_ks\right)^Ts}{\left(y^Ts\right)^2}yy^T\tag{10.43}
 $$
 其中
 $$
