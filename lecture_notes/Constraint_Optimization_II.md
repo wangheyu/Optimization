@@ -222,7 +222,7 @@ $$
 $$
 \begin{eqnarray}
 i \in \mathcal{E} &\Rightarrow& c_i(z_k) = t_k\nabla c_i(x^*)^Td = 0, \tag{12.42a}\\
-i \in \mathcal{A}(x^*) \cap \mathcal{I} &\Rightarrow& c_i(z_k) = t_k \nabla c_i(x^*)T^d \geq 0, \tag{12.42b}
+i \in \mathcal{A}(x^*) \cap \mathcal{I} &\Rightarrow& c_i(z_k) = t_k \nabla c_i(x^*)^Td \geq 0, \tag{12.42b}
 \end{eqnarray}
 $$
 所以，对充分大的$k$以及相应充分小的$t_k$，$z_k$是可行的。（还没有结束！）
@@ -315,7 +315,7 @@ $$
 
 **证明：** 我们首先证明，这两种情况不会同时成立。否则，若$g \in K$，即有$y \geq 0$和$w$，使
 $$
-g = By + cw,
+g = By + Cw,
 $$
 同时又有$d \in \mathbb{R}^n$，使$g^Td < 0$，$B^Td \geq 0$，$C^Td = 0$，则
 $$
@@ -455,7 +455,7 @@ T_\Omega(x^*) = \mathcal{F}(x^*).
 $$
 结合上述两个结论，我们有任取$d \in \mathcal{F}(x^*)$，
 $$
-d^T \nabla(x^*) \geq 0.
+d^T \nabla f(x^*) \geq 0.
 $$
 于是由Farks引理（引理12.4），在两个结论中只能前一个成立，也即(12.51)成立。即存在$\lambda$使得
 $$
