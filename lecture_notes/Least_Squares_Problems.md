@@ -194,7 +194,7 @@ $$
 $$
 \begin{eqnarray}
 \|Jx - y\|_2^2 &=& \left\|\left[\begin{array}{c}S\\0\end{array}\right]\left(V^Tx\right)-\left[\begin{array}{c}U_1^T\\U_2^T\end{array}\right]y\right\|_2^2\\
-&=& \left\|S\left(V^Tx\right)-U_1^Ty\right\|_2^2+\|U_2Ty\|_2^2.
+&=& \left\|S\left(V^Tx\right)-U_1^Ty\right\|_2^2+\|U_2^Ty\|_2^2.
 \tag{10.20}
 \end{eqnarray}
 $$
