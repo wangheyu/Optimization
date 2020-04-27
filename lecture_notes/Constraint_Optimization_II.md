@@ -93,7 +93,7 @@ $$
 $$
 z_k = (-\sqrt{2}, 0)^T + (1/k)w,
 $$
-其中$w$是任意位于右半平面内的向量，即$w = (w_1, w_2)^T, w_2 > 0$。当$\|z_k\| \leq \sqrt{2}$时，序列值$z_k$是可行的，也即
+其中$w$是任意位于右半平面内的向量，即$w = (w_1, w_2)^T, w_1 > 0$。当$\|z_k\| \leq \sqrt{2}$时，序列值$z_k$是可行的，也即
 $$
 (-\sqrt{2} + w_1/k)^2 + (w_2/k) \leq 2,
 $$
@@ -302,7 +302,7 @@ $$
 
 （这个锥的定义比我们直观中的锥稍微更一般一点，它允许在一些方向上是全部而另一些方向上是正向。比如三维空间的一个半平面，按照这个定义也是一个锥。）
 
-现在对于一个$g \in \mathbb{R}^n$，显然要么有$g \in \mathbb{R}^n$，要么$g \in \mathbb{R}^n$。但一个叫Fakes的几何学家指出，后者可以改为存在$d \in \mathbb{R}^n$，使得
+现在对于一个$g \in \mathbb{R}^n$，显然要么有$g \in \mathbb{R}^n$，要么$g \notin \mathbb{R}^n$。但一个叫Fakes的几何学家指出，后者可以改为存在$d \in \mathbb{R}^n$，使得
 $$
 \begin{equation}
 g^Td < 0, B^Td \geq 0, C^Td = 0.
@@ -332,7 +332,7 @@ $$
 \tag{12.47}
 \end{equation}
 $$
-由$\hat{s} \in K$，且$K$是锥，故$\alpha \hat{s} \in K, \forall \alpha 0$。由$\hat{s}$定义，当$\alpha = 1$时，有
+由$\hat{s} \in K$，且$K$是锥，故$\alpha \hat{s} \in K, \forall \alpha \in \mathbb{R}$。由$\hat{s}$定义，当$\alpha = 1$时，有
 $$
 \|\alpha\hat{s} - g\|_2^2 = (\alpha\hat{s} - g)^T(\alpha\hat{s} - g)
 $$
@@ -404,13 +404,13 @@ $$
 $$
 C^Td = 0.
 $$
-也即(12.46)第二项成立。
+也即(12.46)第三项成立。
 
 再令$w = 0$，有
 $$
 (B^Td)^Ty \geq 0 , \forall y \geq 0 \Rightarrow B^Td \geq 0.
 $$
-这是(12.46)第三项，于是$d$满足(12.46)，证毕。$\Box$
+这是(12.46)第二项，于是$d$满足(12.46)，证毕。$\Box$
 
 **推论** 考虑Farks引理的一个特例：锥
 $$
@@ -445,7 +445,7 @@ $$
 
 ）
 
-**定理12.1的证明：**设$x^* \in \mathbb{R}^n$是问题(12.1)的一个可行点，且满足LICQ。进一步，$x^*$还是(12.1)的局部最优点。由定理12.3，任取$d \in T_\Omega{x^*}$，有
+**定理12.1的证明：**设$x^* \in \mathbb{R}^n$是问题(12.1)的一个可行点，且满足LICQ。进一步，$x^*$还是(12.1)的局部最优点。由定理12.3，任取$d \in T_\Omega(x^*)$，有
 $$
 d^T \nabla f(x^*) \geq 0.
 $$
