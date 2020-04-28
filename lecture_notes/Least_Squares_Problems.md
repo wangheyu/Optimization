@@ -194,7 +194,7 @@ $$
 $$
 \begin{eqnarray}
 \|Jx - y\|_2^2 &=& \left\|\left[\begin{array}{c}S\\0\end{array}\right]\left(V^Tx\right)-\left[\begin{array}{c}U_1^T\\U_2^T\end{array}\right]y\right\|_2^2\\
-&=& \left\|S\left(V^Tx\right)-U_1^Ty\right\|_2^2+\|U_2Ty\|_2^2.
+&=& \left\|S\left(V^Tx\right)-U_1^Ty\right\|_2^2+\|U_2^Ty\|_2^2.
 \tag{10.20}
 \end{eqnarray}
 $$
@@ -259,7 +259,7 @@ $$
 $$
 但它的计算量实际和
 $$
-\nabla f_k = J^Tr_k
+\nabla f_k = J_k^Tr_k
 $$
 相当。
 
@@ -317,7 +317,7 @@ $$
 $$
 因此下面的引理可以看作定理4.1的一个推论。
 
-**引理 10.2** 向量$p^{\mathrm{LM}}$时信任域子问题
+**引理 10.2** 向量$p^{\mathrm{LM}}$是信任域子问题
 $$
 \min_p \|J p + r\|_2^2, \quad \mbox{s.t.} \|p\|_2 \leq \Delta
 $$
@@ -374,7 +374,7 @@ $$
 
 如果我们把所有的Givens变换的算子叠加作用都用$\bar{Q}_\lambda$表示，那么有
 $$
-\bar{Q}_\lambda\left[\begin{array}{c}R\\0\\ \sqrt{\lambda}I\end{array}\right]=\left[\begin{array}{c}R_\lambda \\ 0\\ 0\end{array}\right],
+\bar{Q}_\lambda^T\left[\begin{array}{c}R\\0\\ \sqrt{\lambda}I\end{array}\right]=\left[\begin{array}{c}R_\lambda \\ 0\\ 0\end{array}\right],
 $$
 而最终完成了(10.36)的分解，其中
 $$
@@ -418,7 +418,7 @@ S_k = \sum_{j = 1}^mr_j(x_k)\nabla^2 r_j(x_k)
 $$
 展开类似拟Newton方法的递推估计，比如Dennis, Gay 和 Welsch [90]给出的公式如下：
 $$
-S_{k + 1} = S_k + \frac{\left(y^\#-S_ks\right)y^T+y\left(y^\# - S_ks\right)^T}{y^Ts} - \frac{\left(y^\# - S_ks\right)^Ts}{\left(y^Ts\right)^2}\tag{10.43}
+S_{k + 1} = S_k + \frac{\left(y^\#-S_ks\right)y^T+y\left(y^\# - S_ks\right)^T}{y^Ts} - \frac{\left(y^\# - S_ks\right)^Ts}{\left(y^Ts\right)^2}yy^T\tag{10.43}
 $$
 其中
 $$
@@ -450,15 +450,15 @@ $$
 要解决上述问题，我们实际上需要求解的无约束问题如下（其实一直有一点超纲，这些都是约束优化的方法）：
 $$
 \begin{equation}
-\min_{x, \delta} F(x, \delta)=\frac12\sum_{j = 1}^m w_j^2\left[y_j - \phi(x;t_j + \delta_j)\right]^2 + d_j^2\delta_j^2:=\frac12\sum_{j = 1}^{2m}r_j^2(x, \delta),
+\min_{x, \delta} F(x, \delta)=\frac12\sum_{j = 1}^m w_j^2\left[y_j - \phi(x;t_j + \delta_j)\right]^2 + d_j^2\delta_j^2=\frac12\sum_{j = 1}^{2m}r_j^2(x, \delta),
 \tag{10.46}
 \end{equation}
 $$
 其中$\delta = (\delta_1, \delta_2, \cdots, \delta_m)^T$，以及
 $$
 \begin{equation}
-r_j(x, \delta) = \left\{\begin{array}{rr}w_j\left[\phi(x; t_j + \delta_j) - y_j\right], &j = 1, 2, \cdots, m.\\
-d_{j - m}\delta_{j - m}, & j = m + 1, \cdots, 2m.\end{array}\right.
+r_j(x, \delta) = \begin{cases}w_j\left[\phi(x; t_j + \delta_j) - y_j\right], &j = 1, 2, \cdots, m.\\
+d_{j - m}\delta_{j - m}, & j = m + 1, \cdots, 2m.\end{cases}
 \tag{10.47}
 \end{equation}
 $$
@@ -466,7 +466,7 @@ $$
 
 好在(10.46)的Jacobi矩阵是有特殊结构可以在CG或LM方法中加以利用的。注意到
 $$
-\frac{\partial r_j}{\partial \delta_j} = \frac{\partial \left[\phi(x;t_j + \delta_j) - y_j\right]}{\partial \delta_j} = 0, i, j = 1, 2, \cdots, m, i \neq j,
+\frac{\partial r_j}{\partial \delta_i} = \frac{\partial \left[\phi(x;t_j + \delta_j) - y_j\right]}{\partial \delta_i} = 0, i, j = 1, 2, \cdots, m, i \neq j,
 $$
 且
 $$
