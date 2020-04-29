@@ -191,7 +191,7 @@ A(x^*)Z = 0, Z \in \mathbb{R}^{n \times(n - m)},
 \tag{12.39}
 \end{equation}
 $$
-其中$Z$列满秩。（即$A(x^*)$作为一个线性方程组的稀疏矩阵，则该线性方程组是欠定的，它对应的齐次方程组的解是一个空间，$Z$的列向量就是它的全部基。更近一步的理论参见《高等代数》课本。）任取$d \in \mathcal{F}(x^*)$，令$\{t_k\}_{k = 0}^{\infty}$是任意的正项序列，且满足$t_k \to 0, k \to \infty$。定义映射$R : \mathbb{R}^n \times \mathbb{R} \to \mathbb{R}^n$以及参数方程组如下：
+其中$Z$列满秩。（即$A(x^*)$作为一个线性方程组的系数矩阵，则该线性方程组是欠定的，它对应的齐次方程组的解是一个空间，$Z$的列向量就是它的全部基。更近一步的理论参见《高等代数》课本。）任取$d \in \mathcal{F}(x^*)$，令$\{t_k\}_{k = 0}^{\infty}$是任意的正项序列，且满足$t_k \to 0, k \to \infty$。定义映射$R : \mathbb{R}^n \times \mathbb{R} \to \mathbb{R}^n$以及参数方程组如下：
 $$
 \begin{equation}
 R(z, t) = \left[\begin{array}{c}c(z) - tA(x^*)d\\
@@ -302,7 +302,7 @@ $$
 
 （这个锥的定义比我们直观中的锥稍微更一般一点，它允许在一些方向上是全部而另一些方向上是正向。比如三维空间的一个半平面，按照这个定义也是一个锥。）
 
-现在对于一个$g \in \mathbb{R}^n$，显然要么有$g \in \mathbb{R}^n$，要么$g \notin \mathbb{R}^n$。但一个叫Fakes的几何学家指出，后者可以改为存在$d \in \mathbb{R}^n$，使得
+现在对于一个$g \in \mathbb{K}^n$，显然要么有$g \in K$，要么$g \notin K$。但一个叫Farkas的几何学家指出，后者可以改为存在$d \in \mathbb{R}^n$，使得
 $$
 \begin{equation}
 g^Td < 0, B^Td \geq 0, C^Td = 0.
@@ -311,7 +311,7 @@ g^Td < 0, B^Td \geq 0, C^Td = 0.
 $$
 这件事情的真正意义在于，将一件什么是锥，以及它如何划分空间这样一件纯几何的事情，和(12.46)这样的代数形式建立了联系。它本质上涉及到几何信息可以如何正确表达这样一件非常基础的事实，同时，也能解决我们现在遇到的问题。这个事实总结为下述引理：
 
-**引理12.4（Farks引理）** 令锥$K$如(12.45)所定义。则对任意$g \in \mathbb{R}^n$，要么$g \in K$，否则必有$d \in \mathbb{R}^n$满足(12.46)。
+**引理12.4（Farkas引理）** 令锥$K$如(12.45)所定义。则对任意$g \in \mathbb{R}^n$，要么$g \in K$，否则必有$d \in \mathbb{R}^n$满足(12.46)。
 
 **证明：** 我们首先证明，这两种情况不会同时成立。否则，若$g \in K$，即有$y \geq 0$和$w$，使
 $$
@@ -353,7 +353,7 @@ $$
 \|\hat{s} + \theta(s - \hat{s}) - g\|_2^2 \geq \|\hat{s} - g\|_2^2, \forall \theta \in [0, 1].
 \end{equation}
 $$
-（这里$\hat{s} + \theta(s - \hat{s}) = (1-\theta)\hat{s} + \theta s$是$s$和$\hat{s}$的凸组合，由$s, \hat{s} \in K$，其凸组合必属于$K$，因此到$g$的距离必小于最佳逼近距离。）
+（这里$\hat{s} + \theta(s - \hat{s}) = (1-\theta)\hat{s} + \theta s$是$s$和$\hat{s}$的凸组合，由$s, \hat{s} \in K$，其凸组合必属于$K$，因此到$g$的距离必大于最佳逼近距离。）
 
 将上式转成向量内积形式：
 $$
