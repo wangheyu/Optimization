@@ -606,7 +606,7 @@ $$
 $$
 \bar{P}_{r - 1}(\lambda) = \frac{Q_r(\lambda) - 1}{\lambda}
 $$
-是一个$r - 1$次多项式。在(5.24)中，令$k = r - 1$，则有
+是一个$r - 1$次多项式。在(5.34)中，令$k = r - 1$，则有
 $$
 0 \leq \min_{P_{r - 1}}\max_{1 \leq i \leq n}\left[1 + \lambda_iP_{r - 1}(\lambda_i)\right]^2 \leq \max_{1 \leq i \leq n}\left[1 + \lambda_i\bar{P}_{r - 1}(\lambda_i)\right]^2 = \max_{1 \leq i \leq n} Q_r^2(\lambda_i) = 0.
 $$
