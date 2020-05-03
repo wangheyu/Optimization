@@ -83,7 +83,7 @@ $$
 
 
 
-**证明：**由$\{p_i, i = 0, \cdots, n\}$线性无关，故向量$x^* - x_0 \in \mathbb{R}^n$可由其线性表出，即
+**证明：**由$\{p_i, i = 0, \cdots, n-1\}$线性无关，故向量$x^* - x_0 \in \mathbb{R}^n$可由其线性表出，即
 $$
 x^* - x_0 = \sigma_0 p_0 + \sigma_1 p_1 + \cdots + \sigma_{n - 1} p_{n - 1},
 $$
@@ -606,7 +606,7 @@ $$
 $$
 \bar{P}_{r - 1}(\lambda) = \frac{Q_r(\lambda) - 1}{\lambda}
 $$
-是一个$r - 1$次多项式。在(5.24)中，令$k = r - 1$，则有
+是一个$r - 1$次多项式。在(5.34)中，令$k = r - 1$，则有
 $$
 0 \leq \min_{P_{r - 1}}\max_{1 \leq i \leq n}\left[1 + \lambda_iP_{r - 1}(\lambda_i)\right]^2 \leq \max_{1 \leq i \leq n}\left[1 + \lambda_i\bar{P}_{r - 1}(\lambda_i)\right]^2 = \max_{1 \leq i \leq n} Q_r^2(\lambda_i) = 0.
 $$
@@ -766,7 +766,7 @@ $$
 \tag{5.45}
 \end{equation}
 $$
-此外还有大量针对一般情形和特殊情形的变形，这里的一个原则是希望这一项能尽可能在计算上稳定，同时能更多引入新的局部信心。比如：
+此外还有大量针对一般情形和特殊情形的变形，这里的一个原则是希望这一项能尽可能在计算上稳定，同时能更多引入新的局部信息。比如：
 $$
 \begin{equation}
 \beta_{k + 1}^{\mathrm{HS}} = \frac{\nabla f_{k + 1}^T(\nabla f_{k + 1} - \nabla f_k)}{(\nabla f_{k + 1} - \nabla f_k)^Tp_k},
