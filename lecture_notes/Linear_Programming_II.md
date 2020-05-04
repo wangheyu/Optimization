@@ -156,4 +156,331 @@ f(x) = c^Tx = 0
 $$
 即是当前目标值。接下去迭代应该设法找到新的基础可行点来降低这个值，如果它还不是最优的话。
 
-对一个基础可行点$x$判定是否最优，我们直接采用(13.4)。
+对一个基础可行点$x$判定是否最优，我们直接采用(13.4)。首先为了满足互补性条件(13.4e)，我们令$s_B = 0$，然后来确定剩下的Lagrange乘子$s_N$和$\lambda$。由(13.4a)，
+$$
+A^T\lambda + s = c \Rightarrow \left[
+\begin{array}{c}
+B^T\\N^T
+\end{array}
+\right]\lambda + \left[
+\begin{array}{c}
+s_B\\ s_N
+\end{array}
+\right] = \left[
+\begin{array}{c}
+c_B\\c_N
+\end{array}
+\right]
+$$
+得
+$$
+\begin{equation}
+B^T\lambda = c_B, \quad N^T\lambda + s_N = c_N.
+\tag{13.19}
+\end{equation}
+$$
+因为$B$是非奇异的，因此由第一个方程可得：
+$$
+\begin{equation}
+\lambda = B^{-1}c_B. \tag{13.20}
+\end{equation}
+$$
+再通过(13.19)的第二个方程可以确定$s_N$：
+$$
+\begin{equation}
+s_N = c_N - N^T\lambda = c_N - (B^{-1}N)^Tc_B.
+\tag{13.21}
+\end{equation}
+$$
+现在检查$s_N$，若$s_N \geq 0$，则我们已经找到了一组$(x, \lambda, s)$满足KKT条件(31.4)，也即，当前的$x$就是问题(13.1)的全局最优解。我们继续在例13.1中演示这个算法。现在，
+$$
+\lambda = B^{-1}c_B = \left[
+\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}
+\right] \cdot \left[
+\begin{array}{c}
+0\\0
+\end{array}
+\right] = \left[
+\begin{array}{c}
+0\\0
+\end{array}
+\right],
+$$
+而
+$$
+s_N = c_N - (B^{-1}N)^Tc_B = \left[
+\begin{array}{c}
+-4\\-2
+\end{array}
+\right] - (\left[
+\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}
+\right]\left[
+\begin{array}{cc}
+1 & 1\\
+2 & \frac12
+\end{array}
+\right])\cdot \left[
+\begin{array}{c}
+0 \\0
+\end{array}
+\right] = \left[
+\begin{array}{c}
+-4\\-2
+\end{array}
+\right].
+$$
+（注意书上的例13.1从此处其开始有计算错误。）这里显然$s_N$的两个分量都是负数，也即沿这两个坐标方向，例13.1的问题有更小的值。对于一般问题而言，我们这里需要选择一个$\mathcal{B}$中的下标，和$\mathcal{N}$中的一个下标交换（这一过程有的教材称为“出基”和“入基”），从而得到一个能够取到更小值的基础可行点（新的$\mathcal{B}$和$\mathcal{N}$，新的$x_B$和$x_N$，新的$x$，$\cdots$等等），然后再做下一次KKT判定。到此，一个完整的迭代循环已经完成，如此循环，直到某一个基础可行点被确定为全局最优点（KKT点），或者能够判定目标函数值是可以取到负无穷的为止。现在要算法化这个循环，我们还要确定出基和入基。首先入基并没有什么特别确定的选择，理论上说，$s_N$的负分量的指标都可以作为入基，我们也只需要一个入基。比如目前的例13.1中，$s_1 = -4$，$s_2 = -2$，因此$1$或$2$均可以作为入基。但是为了算法统一起见，我们这里可以选择最小的一个分量，也就是$q = 1$作为入基（这样做未必是最优的，$s_3$更小并不意味着沿$x_3$方向能下降的更快，但确实有学者推荐这么做）。对一般问题，在这里有$q \in \mathcal{N}$，且$s_q < 0$。接下去继续确定出基$p$，也就是要从$\mathcal{B}$中选择一个指标来和出基交换。我们用$x^+$代表寻找中的新基础可行点，则$x_B^+$和$x_B$就只有一个分量的区别（我们暂时还不知道是哪一个），而且对$x^+$和$x$，由于约束条件，必有
+$$
+Ax^+ = Bx_B^+ + A_qx_q^+ = B x_B = Ax.
+$$
+这里注意到对 $i \in \mathcal{N} \backslash \{q\}$，总有$x_i^+ = 0$以及$x_N = 0$，$A_q$是$N$中对应入基的那一列。上式中间两式两边同乘以$B^{-1}$，有
+$$
+\begin{equation}
+x^+_B + B^{-1}A_qx_q^+=x_B \Rightarrow x_B^+ = x_B - B^{-1}A_qx_q^+.
+\tag{13.22}
+\end{equation}
+$$
+ 这个式子形象地告诉我们，新的目标点是旧的目标点，沿$x_q$方向进行新的搜索，但要能移动这一点，我们必须在原本的$\mathcal{B}$中放弃一个约束，也就是出基$p$。令
+$$
+d = B^{-1}A_q,
+$$
+则
+$$
+x_B^+ = x_B - x_q^+d,
+$$
+如果$d$至少存在一个正分量，那么在对应的坐标方向上，$x_B$的分量以$x_qd_i$的速率下降，$i \in \mathcal{B}$，$d_i > 0$。若$\forall i \in \mathcal{B}$，有$d_i \leq 0$，则说明存在一个目标值下降的坐标方向，可行域在此方向上可以延伸到无穷远，即对应的线性规划无解。对前一种情况，考虑到$x_B^+$也必须满足各分量非负，即$\forall i \in \mathcal{B}$，$d_i > 0$，必须有
+$$
+\frac{(x_B^+)_i}{d_i} = \frac{(x_B)_i}{d_i} - x_q^+ \geq 0,
+$$
+在上述各下降分量中，必有一个最先达到零（下降速率相同），那个就是我们选择的$p$。而同时有
+$$
+x_q^+ = \frac{(x_B)_p}{d_p},
+$$
+以及
+$$
+x_B^+ = x_B - x_q^+d.
+$$
+对例13.1，有
+$$
+A_q = A_1 = \left[
+\begin{array}{c}
+1 \\ 2
+\end{array}
+\right] \Rightarrow d = B^{-1}A_q = \left[
+\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}
+\right]\left[
+\begin{array}{c}
+1 \\ 2
+\end{array}
+\right] = \left[
+\begin{array}{c}
+1 \\ 2
+\end{array}
+\right],
+$$
+$d$的各分量均正，而其中，
+$$
+\frac{(x_B)_3}{d_3} = \frac{5}{1} = 5, \quad \frac{(x_B)_4}{d_4} = \frac{8}{2} = 4,
+$$
+注意这里下标用的是$\mathcal{B}$，显然$p$应该选择$4$。以及$x_1^+ = 4$。
+$$
+x_B^+ = x_B - d\cdot x_q^+ = \left[
+\begin{array}{c}
+5 \\ 8
+\end{array}
+\right] - \left[
+\begin{array}{c}
+1 \\ 2
+\end{array}
+\right] \cdot 4 = \left[
+\begin{array}{c}
+1 \\ 0
+\end{array}
+\right].
+$$
+注意这里$x_B^+$中对应$q$的分量必须是零，否则必然有错误。也即此时，新的基础可行点为
+$$
+x^+ = (4, 0, 1, 0)^T.
+$$
+再由(13.22)，
+$$
+\begin{equation}
+c^Tx^+ = c_B^Tx_B^+ + c_qx_q^+ = c_B^Tx_B - c_B^TB^{-1}A_qx_q^+ + c_qx_q^+.
+\tag{13.23}
+\end{equation}
+$$
+再由(13.20)，$c_B^TB^{-1} = \lambda$。而(13.19)的第二个方程对$q \in \mathcal{N}$，有
+$$
+A_q^T\lambda = c_q - s_q,
+$$
+综合起来有
+$$
+c_B^TB^{-1}A_qx_q^+ = \lambda^T A_qx_q^+ = (c_q - s_q)x_q^+,
+$$
+代入(13.23)，得
+$$
+\begin{equation}
+c^Tx^+ = c_B^Tx_B - (c_q - s_q)x_q^+ + c_qx_q^+ = c^Tx + s_qx_q^+. 
+\tag{13.24}
+\end{equation}
+$$
+即目标函数值只需做针对调整即可。对例13.1，即新目标函数值为
+$$
+c^Tx^+ = c^Tx + s_qx_q^+ = 0 + s_qx_q^+ = -4\cdot 4 = -16.
+$$
+我们继续用此算法完成例13.1。目前$\mathcal{B} = \{3, 1\}$，即
+$$
+B = \left[
+\begin{array}{cc}
+1 & 1 \\
+0 & 2
+\end{array}
+\right]
+,
+$$
+注意为了和之前的次序及交换一致，这里第一列和第二列分别对应指标$3$和$1$。于是
+$$
+B^T\lambda  = \left[
+\begin{array}{cc}
+1 & 0 \\
+1 & 2
+\end{array}
+\right] \left[
+\begin{array}{c}
+\lambda_3\\ \lambda_1
+\end{array}
+\right] = c_B = \left[
+\begin{array}{c}
+0 \\ -4
+\end{array}
+\right] \Rightarrow \lambda = \left[
+\begin{array}{c}
+0 \\ -2
+\end{array}
+\right].
+$$
+而
+$$
+s_N = \left[
+\begin{array}{c}
+s_4\\ s_2
+\end{array}
+\right] = c_N - N^T\lambda = \left[
+\begin{array}{c}
+0 \\ -2
+\end{array}
+\right] - \left[
+\begin{array}{cc}
+0 & 1\\
+1 & \frac{1}{2}
+\end{array}
+\right]\left[
+\begin{array}{c}
+0 \\ -2
+\end{array}
+\right] = \left[
+\begin{array}{c}
+2\\ -1
+\end{array}
+\right].
+$$
+仍然有负分量。于是继续选择$q = 2$，则
+$$
+A_q = \left[
+\begin{array}{c}
+1 \\ \frac12
+\end{array}
+\right], Bd = A_q = \left[
+\begin{array}{cc}
+1 & 1\\
+0 & 2
+\end{array}
+\right]d = \left[
+\begin{array}{c}
+1 \\ \frac12
+\end{array}
+\right] \Rightarrow d = \left[
+\begin{array}{c}
+\frac{3}{4} \\ \frac{1}{4}
+\end{array}
+\right],
+$$
+于是
+$$
+x_B ./ d = \left[
+\begin{array}{c}
+\frac43\\
+16
+\end{array}
+\right],
+$$
+这里借用一下Matlab的点运算，确定出基是$p = 3$（排第一位的是$3$）。即$\mathcal{B}$更新为$\{2, 1\}$。再由
+$$
+x_B^+ = \left[
+\begin{array}{c}
+1 \\ 4
+\end{array}
+\right] - \left[
+\begin{array}{c}
+\frac34\\ \frac14
+\end{array}
+\right]\cdot \frac43 = \left[
+\begin{array}{c}
+0 \\ \frac{11}{3}
+\end{array}
+\right],
+$$
+即$x$更新为
+$$
+x = (\frac{11}{3}, \frac43, 0, 0)^T.
+$$
+此时目标函数值更新为：
+$$
+f(x) = -16 + -1 \cdot \frac{4}{3} = -\frac{52}{3}.
+$$
+再次检查
+$$
+\left[
+\begin{array}{cc}
+1 & \frac{1}{2}\\
+1 & 2
+\end{array}
+\right]\lambda = \left[
+\begin{array}{c}
+-2 \\ -4  
+\end{array}
+\right] \Rightarrow \lambda = \left[
+\begin{array}{c}
+-\frac43 \\ -\frac43  
+\end{array}
+\right],
+$$
+以及
+$$
+s_N = c_N - N^T\lambda = \left[
+\begin{array}{c}
+0 \\ 0
+\end{array}
+\right] - \left[
+\begin{array}{cc}
+1 & 0 \\
+0 & 1
+\end{array}
+\right]\left[
+\begin{array}{c}
+\frac43 \\ \frac43
+\end{array}
+\right] \geq 0,
+$$
+满足(13.4)，即$x^* = (\frac{11}{3}, \frac{4}{3}, 0, 0)^T$，$f(x^*) = -\frac{52}{3}$。
+
+单纯形方法尽管繁琐，但是是一个确定性算法，也即我们可以用计算机程序实现全部过程。从而使得线性规划是可计算的。然而稍加分析我们就能发现，凸多面体的顶点个数，关于维数$n$是指数增加的，因此在最坏可能性下，单纯形方法是指数时间的（我们可以举这样的反例）。不过对于大多数实际问题，或者说，在平均可能性下，单纯形方法的复杂性期望仍然是多项式的。因此它在实际计算中，特别是$n$不是特别大的时候，也经常被采用。
