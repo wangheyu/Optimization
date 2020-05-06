@@ -484,3 +484,136 @@ $$
 满足(13.4)，即$x^* = (\frac{11}{3}, \frac{4}{3}, 0, 0)^T$，$f(x^*) = -\frac{52}{3}$。
 
 单纯形方法尽管繁琐，但是是一个确定性算法，也即我们可以用计算机程序实现全部过程。从而使得线性规划是可计算的。然而稍加分析我们就能发现，凸多面体的顶点个数，关于维数$n$是指数增加的，因此在最坏可能性下，单纯形方法是指数时间的（我们可以举这样的反例）。不过对于大多数实际问题，或者说，在平均可能性下，单纯形方法的复杂性期望仍然是多项式的。因此它在实际计算中，特别是$n$不是特别大的时候，也经常被采用。
+
+**第一个基础可行点**
+
+我们现在讨论一个遗留问题：如何确定单纯形方法的初值，也即第一个基础可行点。实际上，寻找第一个初值本身也是一个线性规划。对标准形式的$\Omega$：
+$$
+\left\{
+\begin{array}{rcl}
+Ax &=& b,\\
+x &\geq& 0,
+\end{array}
+\right.
+$$
+这里$x = (x_1, x_2, \cdots, x_n)^T$。引入松弛变量$x_{n+1}, x_{n+2}, \cdots, x_{n+m}$，并将原依赖修改为：
+$$
+\left\{
+\begin{array}{rcl}
+[A \quad I]x &=& b,\\
+x &\geq& 0,
+\end{array}
+\right.
+$$
+现在$x = (x_1, x_2, \cdots, x_{n +m})^T$。于是$x$限制在$n$维是原问题的一个基础可行点当且仅当
+$$
+\left\{
+\begin{array}{ll}
+\min & f(x) = \displaystyle\sum_{i = n + 1}^{n + m} x_i,\\
+\mbox{s. t.} & [A \quad I] x = b.
+\end{array}
+\right.
+$$
+取到全局最优点$f(x^*) = 0$。此时$x^*$中必有$x_i = 0$，$i = n+1, n+2, \cdots, n+m$。而此问题，是一个自带一个初始基本可行解的线性规划问题，不难用单纯形法求解。有时，这样的单纯形法又称为两阶段单纯形方法。
+
+## 主-对偶方法
+
+对于达到一定规模的线性问题，单纯形方法的效率较低（事实上单纯形方法曾用于手算）。此时，直接采用迭代法有更好的效果。主要的思路是如果我们能够找到一个可行域内的初值，并用之前学习的求解无约束优化的连续迭代方法去求解，同时如果还能保证迭代过程不脱离可行域，那么就可以确保最后迭代到最优解。这种思路的关键是确保迭代序列在可行域内部，故又称“内点法(interior-point methods)”。
+
+对线性规划问题的标准形式：
+$$
+\begin{equation}
+\min c^Tx, \quad \mbox{s. t.} Ax = b, x\geq 0, \tag{14.1}
+\end{equation}
+$$
+其中$c$和$x$是$\mathbb{R}^n$中的向量，$b$是$\mathbb{R}^m$中向量，且$m \times n$矩阵$A$是行满秩的，那么其对偶问题为：
+$$
+\begin{equation}
+\max b^T\lambda, \quad \mbox{s.t.} A^T\lambda + s = c, s \geq 0.
+\tag{14.2}
+\end{equation}
+$$
+其中$\lambda$是$\mathbb{R}^m$中向量，而$s$是$\mathbb{R}^m$中向量。根据KKT条件(13.4)，上述两个问题的最优解都必须满足：
+$$
+\begin{eqnarray}
+A^T\lambda + s &=& c, \tag{14.3a}\\
+Ax &=& b, \tag{14.3b}\\
+x_is_i &=& 0, \quad i = 1, 2, \cdots, n, \tag{14.3c}\\
+(x, s) &\geq& 0. \tag{14.3d}
+\end{eqnarray}
+$$
+因此，接下去我们设法去寻找$(x^*, \lambda^*, s^*)$满足上述条件。这里我们将上述问题改写成如下方程形式：
+$$
+\begin{eqnarray}
+F(x, \lambda, s) = \left[
+\begin{array}{c}
+A^T\lambda + s - c\\
+Ax - b\\
+XSe
+\end{array}
+\right] &=& 0, \tag{14.4a}\\
+(x, s) &\geq&0, \tag{14.4b}
+\end{eqnarray}
+$$
+其中
+$$
+\begin{equation}
+X = \mbox{diag}(x_1, x_2, \cdots, x_n)，S = \mbox{diag}(s_1, s_2, \cdots, s_n), \tag{14.5}
+\end{equation}
+$$
+以及$e = (1, 1, \cdots, 1)^T$。注意这里$F$是一个$\mathbb{R}^{2n+m}$到$\mathbb{R}^{2n+m}$维的非线性函数，我们可以用Newton迭代求解，而对于(14.4b)，我们要确保在迭代求解的过程中，有$x^k > 0$和$s^k > 0$（严格成立）。这里我们提出一个监察指标（对偶尺度，measure）
+$$
+\begin{equation}
+\mu = \frac{1}{n} \sum_{i = 1}^n x_i s_i = \frac{x^Ts}{n}, \tag{14.6}
+\end{equation}
+$$
+显然，这个$\mu$在迭代过程中越小越好，它提供了一个搜索方向或者步长的依据。现在我们来考虑如何迭代。首先对非线性方程组(14.4a)，其Newton迭代步为
+$$
+J(x, \lambda, s) \left[
+\begin{array}{c}
+\Delta x\\
+\Delta \lambda\\
+\Delta s
+\end{array}
+\right] = -F(x, \lambda, s),
+$$
+其中$J$是$F$的Jacobi矩阵。我们定义
+$$
+\begin{equation}
+r_b = Ax - b, \quad r_c = A^T\lambda + s - c, \tag{14.7}
+\end{equation}
+$$
+则整个Newton方程组为：
+$$
+\begin{equation}
+\left[
+\begin{array}{ccc}
+0 & A^T & I\\
+A & 0 & 0\\
+S & 0 &X
+\end{array}
+\right]\left[
+\begin{array}{c}
+\Delta x\\
+\Delta \lambda \\
+\Delta s
+\end{array}
+\right] = \left[
+\begin{array}{c}
+-r_c\\
+-r_b\\
+-XSe
+\end{array}
+\right]. \tag{14.8}
+\end{equation}
+$$
+于是一个完整的Newton迭代步为：
+$$
+(x^{k + 1}, \lambda^{k + 1}, s^{k + 1}) = (x^k, \lambda^k, s^k) + \alpha(\Delta x^k, \Delta \lambda^k, \Delta s^k).
+$$
+这里$\alpha \in (0, 1]$。因为$(x^k, \lambda^k, s^k)$是可行点，根据连续性，只要$\alpha$足够小，我们总能确保$(x^{k + 1}, \lambda^{k + 1}, s^{k + 1})$可行。但这里如果我们想摆脱这种猥琐发育的算法，使得单步步长尽可能大，我们就需要对Newton方向做一个调整。比如，我们在考虑方向的时候就同时在非线性残量中加入$\mu$的因素：
+$$
+\begin{equation}\left[\begin{array}{ccc}0 & A^T & I\\A & 0 & 0\\S & 0 &X\end{array}\right]\left[\begin{array}{c}\Delta x\\\Delta \lambda \\\Delta s\end{array}\right] = \left[\begin{array}{c}-r_c\\-r_b\\-XSe + \sigma\mu e\end{array}\right]. \tag{14.9}\end{equation}
+$$
+这里$\sigma \in [0, 1]$称为中心化参数(centering parameter)。当$\sigma > 0$时，上述方程组得到的方向相比Newton方向一般可取到更大的步长。我们这里只是引入这样一个算法，接下去不再详细讨论$\sigma $和$\alpha$的实际取法，以及其他可以考虑的模型方程。有兴趣的同学可以自己阅读参考书P396以后的第十四章部分，而Matlab的线性规划求解器中也提供了相应的内点法求解程序。
+
