@@ -253,7 +253,7 @@ c_i(x) = a_i^Tx + b_i, \tag{12.75}
 $$
 这里$a_i \in \mathbb{R}^n$，以及$b_i \in \mathbb{R}$，那么显然$\mathcal{F}(x^*)$和$\Omega$对活跃约束的表现而言就是一致的。
 
-**引理 12.7** 假设$x^* \in \Omega$的全部活跃约束$c_i(x)$，$i \in \mathcal{A}(x^*)$，都是线性函数，则$\mathcal{F}(x^*) = T_\Omega(x^*)$。
+**引理 12.7** 假设$x^* \in \Omega$的全部活跃约束$c_i(x^*)$，$i \in \mathcal{A}(x^*)$，都是线性函数，则$\mathcal{F}(x^*) = T_\Omega(x^*)$。
 
 **证明** 首先由引理12.2，$T_\Omega(x^*) \subset \mathcal{F}(x^*)$。因此只需证$\mathcal{F}(x^*) \subset T_\Omega(x^*)$，也即$\forall w \in \mathcal{F}(x^*)$，有$w \in T_\Omega(x^*)$。由定义及条件(12.75)，
 $$
