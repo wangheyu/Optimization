@@ -2,14 +2,22 @@
 
 在LICQ（或其他适当的约束规范）前提下，我们可以通过局部最优点$x^*$处的$\mathcal{F}(x^*)$来分析全部一阶局部信息应该具有的性质，也就是KKT条件。本节我们继续讨论二阶局部信息应该具有的性质，并最终给出二阶必要和充分条件。
 
-首先，我们将焦点放在一阶条件中无法判定升降的方向，也即$w$满足
+已知$x^*$是局部最优点，由一阶条件，存在$\lambda^*$使$(x^*, \lambda^*)$满足KKT条件。首先，我们将焦点放在一阶条件中无法判定升降的从$x^*$出发的可行方向$w$，也即$w$满足
 $$
 w^T\nabla f(x^*) = 0.
 $$
+（这里如果大于零，则一阶信息确保了上升，如果小于零，则下降。而严格等于零，表明这是一个待定方向。若$x^*$是严格局部最优点，我们知道这个方向必须上升，但从一阶条件无法得到这个结论。）
+
 我们在KKT条件的框架下，将其定义为一个锥的形式，称为关键锥(critical cone)：
 $$
 \mathcal{C}(x^*, \lambda^*) = \left\{w \in \mathcal{F}(x^*) \left|\nabla c_i(x^*)^Tw = 0, \forall i \in \mathcal{A}(x^*)\cap\mathcal{I}, \lambda_i > 0\right.\right\}.
 $$
+（我们仍然保持LICQ，因此$T_\Omega(x^*)$和$\mathcal{F}(x^*)$是一致的。这里$w \in \mathcal{F}(x^*)$首先表明从一阶信息看，$w$是在$x^*$邻域内的$\Omega$部分的，也即$\forall i \in \mathcal{E}$，有$\nabla c_i(x^*) = 0$。而对$\forall i \in \mathcal{A}(x^*) \cap \mathcal{I}$，有$\nabla c_i(x^*)^Tw \geq 0$，这里注意
+$$
+w^T\nabla f(x^*) = \sum_{i \in \mathcal{A}(x^*)} w^T\nabla c_i(x^*),
+$$
+对$i \in \mathcal{E}$项，右端部分已经为零。对于$i \in \mathcal{A}(x^*)\cap\mathcal{I}$且$\lambda_i = 0$项，右端部分也为零。所以只要提取$\lambda_i > 0$，且$\nabla c_i(x^*)^Tw = 0$的方向，就能确保把全部不确定，也就是$w^T\nabla f(x^*) = 0$的方向都提取出来。）
+
 或等价地，
 $$
 \begin{equation}
@@ -22,7 +30,7 @@ w \in \mathcal{C}(x^*, \lambda^*) \Leftrightarrow \left\{
 \right. \tag{12.53}
 \end{equation}
 $$
-也即$w$方向在等值约束梯度方向上一阶不变，在活跃的且强互补的不等值约束梯度方向上一阶不变，在活跃且不严格互补的不等值约束梯度方向上上升（继续满足约束，但因为不严格互补，此信息没用）。由(12.53)，我们马上有结论
+由(12.53)，我们马上有结论
 $$
 \begin{equation}
 w \in \mathcal{C}(x^*, \lambda^*) \Rightarrow \lambda_i^*\nabla c_i(x^*)^Tw = 0, \quad \forall i \in \mathcal{E}\cup\mathcal{I}.
@@ -45,7 +53,7 @@ $$
 \min x_1, \quad \mbox{s. t.} x_2 \geq 0, 1 - (x_1 - 1)^2 - x_2^2 \geq 0, \tag{12.56}
 \end{equation}
 $$
-（草图）显然全局最优解是$x^* = (0, 0)^T$，而$\mathcal{A}(x^*) = \{1, 2\}$，对应有唯一的Lagrange乘子$\lambda^* = (0, 0.5)^T$。同时，注意到在$x^*$点，活跃约束的梯度分别为
+（草图，手算验证一下结果）显然全局最优解是$x^* = (0, 0)^T$，而$\mathcal{A}(x^*) = \{1, 2\}$，对应有唯一的Lagrange乘子$\lambda^* = (0, 0.5)^T$。同时，注意到在$x^*$点，活跃约束的梯度分别为
 $$
 \nabla c_1(x^*) = (0, 1)^T, \quad \nabla c_2(x^*) = (2, 0)^T,
 $$
@@ -85,7 +93,7 @@ $$
 $$
 c_i(z_k) = t_k \nabla c_i(x^*)^Tw, \forall i \in \mathcal{A}(x^*), \tag{12.60}
 $$
-（以上推导表明在$w$方向上，一阶Taylor展开仍然是成立的。）结合(12.33)，(12.60)和(12.54)，我们有
+（做Taylor展开，此时$c_i(x^*) = 0$）结合(12.33)，(12.60)和(12.54)，我们有
 $$
 \begin{eqnarray}
 \mathcal{L}(z_k, \lambda^*) &=& f(z_k) - \sum_{i \in \mathcal{E}\cup\mathcal{I}}\lambda^*_i c_i(z_k) \\
@@ -93,16 +101,16 @@ $$
 &=& f(z_k), \tag{12.61}
 \end{eqnarray}
 $$
-（然而一阶项实际是零，消失了。）为此我们继续将Taylor展开做下去，
+（然而一阶项实际是零，消失了。）我们再一次Taylor展开，
 $$
 \begin{eqnarray}
-\mathcal{L}(z_k, \lambda^*) &=& \mathcal{L}(x^*, \lambda^*) + (z_k - x^*)^T\nabla_x\mathcal{L}(x^*, \lambda^*) + \frac12(z_k - x^*)^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)(z_k - x^*) + o(\|z_k - x^*\|). \tag{12.62}
+\mathcal{L}(z_k, \lambda^*) &=& \mathcal{L}(x^*, \lambda^*) + (z_k - x^*)^T\nabla_x\mathcal{L}(x^*, \lambda^*) + \frac12(z_k - x^*)^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)(z_k - x^*) + o(\|z_k - x^*\|^2). \tag{12.62}
 \end{eqnarray}
 $$
 在我们的例子中，考虑到互补性条件(12.34e)，已有$\mathcal{L}(x^*, \lambda^*) = f(x^*)$。而在(12.34a)中（一阶必要条件），全部一阶导数项也全部为零（关键锥），再由(12.59)，我们可以将(12.62)改写为
 $$
 \begin{equation}
-\mathcal{L}(z_k, \lambda^*) = f(x^*) + \frac12t_k^2w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*) + o(t_k^2). \tag{12.63}
+\mathcal{L}(z_k, \lambda^*) = f(x^*) + \frac12t_k^2w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)w + o(t_k^2). \tag{12.63}
 \end{equation}
 $$
 结合(12.61)，有
@@ -136,7 +144,7 @@ $$
 \nabla_{xx}^2 \mathcal{L}(x^*, \lambda^*) = \left[
 \begin{array}{cc}
 2\lambda_1^* & 0 \\
-0 & 2\lambda_1
+0 & 2\lambda_1^*
 \end{array}
 \right] = \left[
 \begin{array}{cc}
@@ -145,7 +153,7 @@ $$
 \end{array}
 \right].
 $$
-这是一个正定矩阵，所以定理12.6的条件必然满足。于是$x^* = (-1, -1)^T$必然是严格局部最优点。（这个例子太绝对了一些）
+这是一个正定矩阵，所以定理12.6的条件必然满足。于是$x^* = (-1, -1)^T$必然是严格局部最优点。（这个例子太绝对了一些，任何可行方向，不管是不是关键锥，都是上升的。）
 
 **例 12.9** 更复杂一些的例子：
 $$
@@ -185,7 +193,7 @@ $$
 w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)w = 
 [0 \quad w_2]\left[
 \begin{array}{cc}
--0.4 & 0 \\
+-0.8 & 0 \\
 0 & 1.4
 \end{array}
 \right]
@@ -195,7 +203,7 @@ w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)w =
 \end{array}
 \right] = 1.4 w_2^2 > 0.
 $$
-因此由定理12.6，$x^* = (1, 0)^T$是严格局部最优解。
+（上式书中计算有误，但不影响结论）因此由定理12.6，$x^* = (1, 0)^T$是严格局部最优解。
 
 二阶条件的验证比较复杂，为此人们提出了一种稍微弱化但更加方便的形式。当满足KKT条件的$\lambda^*$是唯一（比如LICQ），并且严格互补性条件条件成立时，关键锥的定义(12.53)简化为
 $$
@@ -299,7 +307,7 @@ $$
 $$
 必有解$w$，也即必满足定义12.6。而反面的例子是容易构建的。参见练习12.13。
 
-我们可以在定理12.1（一阶必要条件）中将LICQ替换成MFCQ，如此KKT条件中的Lagrange乘子$\lambda^*$将不唯一，但其数量是有限的。此外，约束规范是线性逼近能够被接受的充分不必要条件（也即哪怕没有约束规范，线性逼近也未必错）。例如对可行域由下列约束构成：
+我们可以在定理12.1（一阶必要条件）中将LICQ替换成MFCQ，如此KKT条件中的Lagrange乘子$\lambda^*$将不唯一，但其数量是有限的。此外，约束规范是线性逼近几何区域能够被接受的充分不必要条件（也即哪怕没有约束规范，线性逼近也未必错）。例如对可行域由下列约束构成：
 $$
 x_2 \geq - x_1^2, \quad x_2 \leq x_1^2,
 $$
