@@ -193,7 +193,173 @@ w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)w =
 \begin{array}{c}
 0 \\ w_2
 \end{array}
-\right] = 1.4 2_2^2 > 0.
+\right] = 1.4 w_2^2 > 0.
 $$
 因此由定理12.6，$x^* = (1, 0)^T$是严格局部最优解。
+
+二阶条件的验证比较复杂，为此人们提出了一种稍微弱化但更加方便的形式。当满足KKT条件的$\lambda^*$是唯一（比如LICQ），并且严格互补性条件条件成立时，关键锥的定义(12.53)简化为
+$$
+\mathcal{C}(x^*, \lambda^*) = \mbox{Null}\left[\nabla c_i(x^*)^T\right]_{i \in \mathcal{A}(x^*)} = \mbox{Null}A(x^*),
+$$
+这里$A(x^*)$和(12.37)一致。换言之，$\mathcal{C}(x^*, \lambda^*)$此时就是$x^*$点全部活跃约束梯度构成的矩阵的零空间。类似(12.39)，我们可以再次定义矩阵$Z$，它的列向量由$A(x^*)$的零空间的基组成，从而也能张成$\mathcal{C}(x^*, \lambda^*)$，即
+$$
+\mathcal{C}(x^*, \lambda^*) = \left\{Zu \left| u \in \mathbb{R}^{|\mathcal{A}(x^*)|}\right.\right\},
+$$
+这里$|\mathcal{A}(x^*)|$表示计算其元素个数。因此，定理12.5中的条件(12.57)可以改为
+$$
+u^TZ^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)Zu \geq 0, \forall u \in \mathbb{R}^n,
+$$
+或者更简洁地，
+$$
+Z^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)Z
+$$
+是半正定的，相应地，定理12.6的条件(12.65)可以改为
+$$
+Z^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)Z
+$$
+是正定的。
+
+而$Z$可以用QR分解计算得到：
+$$
+\begin{equation}
+A(x^*)^T = Q\left[
+\begin{array}{c}
+R \\ 0
+\end{array}
+\right] = [Q_1 \quad Q_2]\left[
+\begin{array}{c}
+R \\ 0
+\end{array}
+\right] = Q_1R, \tag{12.74}
+\end{equation}
+$$
+这里$R$是上三角矩阵，$Q$是$n \times n$正交阵。若$R$非奇异，则$Z = Q_2$。当LICQ不成立时，$R$是奇异的，此时可以对QR分解做适当的列交换来确定$Z$。
+
+## 其它形式的约束规范
+
+现在我们比较清楚，所谓约束规范，本质上指的是对$\Omega$的线性化代数表示，是否能够正确地抓住$x^*$邻域内$\Omega$的几何外形。所以对于退化的情况，比如全部的活跃约束都是线性函数，也即
+$$
+\begin{equation}
+c_i(x) = a_i^Tx + b_i, \tag{12.75}
+\end{equation}
+$$
+这里$a_i \in \mathbb{R}^n$，以及$b_i \in \mathbb{R}$，那么显然$\mathcal{F}(x^*)$和$\Omega$对活跃约束的表现而言就是一致的。
+
+**引理 12.7** 假设$x^* \in \Omega$的全部活跃约束$c_i(x)$，$i \in \mathcal{A}(x^*)$，都是线性函数，则$\mathcal{F}(x^*) = T_\Omega(x^*)$。
+
+**证明** 首先由引理12.2，$T_\Omega(x^*) \subset \mathcal{F}(x^*)$。因此只需证$\mathcal{F}(x^*) \subset T_\Omega(x^*)$，也即$\forall w \in \mathcal{F}(x^*)$，有$w \in T_\Omega(x^*)$。由定义及条件(12.75)，
+$$
+\mathcal{F}(x^*) = \left\{ d \left| \begin{array}{ll}
+a_i^Td = 0, & \forall i \in \mathcal{E}, \\
+a_i^Td \geq 0, &\forall i \in \mathcal{A}(x^*)\cap\mathcal{I}
+\end{array}
+\right.\right\}.
+$$
+首先，对于在$x^*$不活跃的约束，存在常数$\bar{t} > 0$使得其在$x^* + tw$仍然不活跃，$\forall t \in [0, \bar{t}]$，也即
+$$
+c_i(x^* + tw) > 0, \quad\forall i \in \mathcal{I} \backslash\mathcal{A}(x^*), t\in [0, \bar{t}].
+$$
+（可以认为是连续性，还没走到对面。）
+
+现定义序列$z_k$：
+$$
+z_k = x^* + (\bar{t} / k) w, \quad k = 1, 2, \cdots
+$$
+因为$a_i^Tw \geq 0$，$\forall i \in \mathcal{I} \cap \mathcal{A}(x^*)$，有
+$$
+c_i(z_k) = c_i(z_k) - c_i(x^*) = a_i^T(z_k - x^*) = \frac{\bar t}{k} a_i^T w \geq 0, \quad \forall i \in \mathcal{I}\cap\mathcal{A}(x^*),
+$$
+于是$z_k$对于活跃的不等值约束$c_i$可行，$i \in \mathcal{I}\cap\mathcal{A}(x^*)$。由于$\bar{t}$的设置，我们知道$z_k$对不活跃约束$c_i$也是可行的，$i \in \mathcal{I} \backslash \mathcal{A}(x^*)$。而对等值约束，
+$$
+c_i(z_k) = c_i(z_k) - c_i(x^*) = a_i^T(z_k - x^*) = \frac{\bar t}{k} a_i^T w = 0, \quad \forall i \in \mathcal{E},
+$$
+是显然的。所以，$z_k$对全体$k = 1, 2, \cdots$均可行，进而有
+$$
+\frac{z_k - x^*}{\bar{t} / k} = \frac{(\bar{t} / k)w}{\bar{t} / k} = w,
+$$
+也即$w$就是$\{z_k\}$的极限方向（切线），因此$w \in T_\Omega(x^*) $，证毕。$ \Box$
+
+所以我们可以提出一个新的约束规范：全部活跃约束都是线性函数。注意这个约束规范和LICQ互相不覆盖。
+
+**定义 12.6 (Mangasarian-Fromovitz constraint qualification, MFCQ)** 称$x^*$点MFCQ成立，若存在$w \in \mathbb{R}^n$使得
+$$
+\begin{array}{ll}
+\nabla c_i(x^*)^Tw > 0, & \forall i \in \mathcal{A}(x^*) \cap \mathcal{I},\\
+\nabla c_i(x^*)^Tw = 0, & \forall i \in \mathcal{E},
+\end{array}
+$$
+且等值约束的梯度$\{\nabla c_i(x^*), i \in \mathcal{E}\}$都是线性无关的。
+
+注意这里要求不等值约束对应的不等式都是严格成立的。但是MFCQ比LICQ要更弱一点。若$x^*$满足LICQ，则由$A(x^*)$行满秩，方程组
+$$
+\begin{array}{ll}
+\nabla c_i(x^*)^T w = 1, & \forall i \in \mathcal{A}(x^*)\cap\mathcal{I}, \\
+\nabla c_i(x^*)^T w = 0, & \forall i \in \mathcal{E},
+\end{array}
+$$
+必有解$w$，也即必满足定义12.6。而反面的例子是容易构建的。参见练习12.13。
+
+我们可以在定理12.1（一阶必要条件）中将LICQ替换成MFCQ，如此KKT条件中的Lagrange乘子$\lambda^*$将不唯一，但其数量是有限的。此外，约束规范是线性逼近能够被接受的充分不必要条件（也即哪怕没有约束规范，线性逼近也未必错）。例如对可行域由下列约束构成：
+$$
+x_2 \geq - x_1^2, \quad x_2 \leq x_1^2,
+$$
+在$x^* = (0, 0)^T$点，没有任何约束规范成立。但是其线性化方向集
+$$
+\mathcal{F}(x^*) = \left\{(w_1, 0)^T | w_1 \in \mathbb{R}\right\},
+$$
+实际上正确反映了$x^*$附近可行域的几何特性。
+
+## 一个几何观点
+
+我们接下去从纯几何的角度观察一阶最优条件，不依赖任何代数形式的描述。我们的原始问题的几何描述是
+$$
+\begin{equation}\min f(x), \quad \mbox{s. t.} x \in \Omega, \tag{12.76}\end{equation}
+$$
+其中$\Omega$是可行域。
+
+首先我们需要定义$\Omega$在$x$点的法向锥。
+
+**定义 12.7** 可行域$\Omega$中一点$x$处的法向锥定义为
+$$
+\begin{equation}
+N_\Omega(x) = \{v \left| v^Tw \leq 0, \forall w \in T_\Omega(x)\right.\},
+\tag{12.77}
+\end{equation}
+$$
+其中，$T_\Omega(x)$是$x$处的切锥，如定义12.2。任取$v \in N_\Omega(x)$，我们称$v$是一个法向量（任取$w \in T_\Omega(x)$，$w$是一个切向量）。
+
+从几何上看，任何一个法向量$v$和任何一个切向量$w$的夹角都至少有$\pi / 2$。于是对(12.76)的一阶必要条件为
+
+**定理 12.8** 假设$x^*$是$f$在$\Omega$内的一个局部极小值，则
+$$
+\begin{equation}
+-\nabla f(x^*) \in N_\Omega(x^*). \tag{12.78}
+\end{equation}
+$$
+
+（这是最速下降方向。这个定理提供了一个非常几何直观的条件，如果$x^*$是局部最优点，则最速下降方向一定在法向锥中，反之，我们就能在切锥中找到一个切向是下降的。）
+
+**证明** 对任意的$d \in T_\Omega(x^*)$，我们有满足定义12.2的$\{t_k\}$和$\{z_k\}$使得
+$$
+\begin{equation}
+z_k \in \Omega, z_k = x^* + t_kd + o(t_k), \forall k. \tag{12.79}
+\end{equation}
+$$
+因为$x^*$是局部最优解，故对充分大的$k$，有
+$$
+f(z_k) \geq f(x^*).
+$$
+由$f$充分光滑以及Taylor定理，
+$$
+f(z_k) - f(x^*) = t_k \nabla f(x^*)^Td + o(t_k) \geq 0.
+$$
+两边同除以$t_k$，并取极限$k \to \infty$，有
+$$
+\nabla f(x^*)^T \geq 0.
+$$
+由于$d$是$T_\Omega(x^*)$内任何向量，故事实上对$\forall d \in T_{\Omega}(x^*)$，有
+$$
+-\nabla f(x^*)^Td \leq 0,
+$$
+由定义12.7，$-\nabla f(x^*) \in N_{\Omega}(x^*)$。$\Box $
 
