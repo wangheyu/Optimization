@@ -353,13 +353,13 @@ $$
 令$(x^*, \lambda^*, s^*)$表示一个满足条件(13.4)的向量三元组，由(13.4a)，(13.4d)和(13.4e)有
 $$
 \begin{equation}
-c^Tx^* = (A^T\lambda^* + s^*)^Tx^=(Ax^*)^T\lambda^*=b^T\lambda^*.
+c^Tx^* = (A^T\lambda^* + s^*)^Tx^*=(Ax^*)^T\lambda^*=b^T\lambda^*.
 \tag{13.5}
 \end{equation}
 $$
 在线性规划情形，容易看出(13.4)也是有解的充分条件（问题也只有一阶），即满足(13.4)的$x^*$必是问题(13.1)的全局最优解。令$\bar{x}$是任何可行点，则
 $$
-A\bar{x} = b, \bar{x} \geq 0.
+A\bar{x} = b, \quad\bar{x} \geq 0.
 $$
 于是
 $$
