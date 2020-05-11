@@ -256,11 +256,11 @@ x_B^+ = x_B - x_q^+d,
 $$
 如果$d$至少存在一个正分量，那么在对应的坐标方向上，$x_B$的分量以$x_qd_i$的速率下降，$i \in \mathcal{B}$，$d_i > 0$。反之，若$\forall i \in \mathcal{B}$，有$d_i \leq 0$，则说明存在可行域的开放方向（到无穷远）上可以一直下降，即对应的线性规划无解。对前一种情况，考虑到$x_B^+$也必须满足各分量非负，即$\forall i \in \mathcal{B}$，$d_i > 0$，必须有
 $$
-\frac{(x_B^+)_i}{d_i} = \frac{(x_B)_i}{d_i} - x_q^+ \geq 0, \quad \forall i \in \mathcal{B},
+\frac{(x_B^+)_i}{d_i} = \frac{(x_B)_i}{d_i} - x_q^+ \geq 0, \quad \forall i \in \mathcal{B}, d_i < 0,
 $$
 在上述各下降分量中，必有一个最先达到零（下降速率相同），那个就是我们选择的$p$。也即
 $$
-p = \mbox{argmin} \{\frac{(x_B)_i}{d_i}, i \in \mathcal{B}\}.
+p = \mbox{argmin} \{\frac{(x_B)_i}{d_i}, i \in \mathcal{B}, d_i < 0\}.
 $$
 而同时
 $$
@@ -481,9 +481,13 @@ s_N = c_N - N^T\lambda = \left[
 \end{array}
 \right]\left[
 \begin{array}{c}
+-\frac43 \\ -\frac43
+\end{array}
+\right] = \left[
+\begin{array}{c}
 \frac43 \\ \frac43
 \end{array}
-\right] \geq 0,
+\right]\geq 0,
 $$
 满足(13.4)，即$x^* = (\frac{11}{3}, \frac{4}{3}, 0, 0)^T$，$f(x^*) = -\frac{52}{3}$。
 
