@@ -31,7 +31,7 @@ $$
 
 **定义** 称(13.1)的可行点$x$是一个基础可行点(basic feasible point)，若存在指标集$\{1, 2, \cdots, n\}$的子集$\mathcal{B}$满足：
 
-1. $\mathcal{B}$包含$m$的指标；
+1. $\mathcal{B}$包含$m$个指标；
 2. $i \notin \mathcal{B}$，$x_i = 0$；
 3. $B_{m \times m} = [A_i]_{i \in \mathcal{B}}$非奇异。
 
