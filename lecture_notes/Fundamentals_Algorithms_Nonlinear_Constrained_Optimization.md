@@ -4,7 +4,7 @@
 $$
 \begin{equation}
 \begin{array}{ll}
-\min_{x\in\mathbb{R}^n} & f(x) \\
+\displaystyle \min_{x\in\mathbb{R}^n} & f(x) \\
 \mbox{s.t.} & c_i(x) = 0, i \in \mathcal{E},\\
 & c_i(x) \geq 0, i \in \mathcal{I},
 \end{array}
