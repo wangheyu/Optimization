@@ -182,7 +182,7 @@ $$
 因为$B$是非奇异的，因此由第一个方程可得：
 $$
 \begin{equation}
-\lambda = B^{-T}c_B. \tag{13.20}
+\lambda = (B^{-1})^Tc_B. \tag{13.20}
 \end{equation}
 $$
 再通过(13.19)的第二个方程可以确定$s_N$：
@@ -194,7 +194,7 @@ s_N = c_N - N^T\lambda = c_N - (B^{-1}N)^Tc_B.
 $$
 现在检查$s_N$，若$s_N \geq 0$，则我们已经找到了一组$(x, \lambda, s)$满足KKT条件(31.4)，也即，当前的$x$就是问题(13.1)的全局最优解。我们继续在例13.1中演示这个算法。现在，
 $$
-\lambda = B^{-1}c_B = \left[
+\lambda = (B^{-1})^Tc_B = \left[
 \begin{array}{cc}
 1 & 0\\
 0 & 1
