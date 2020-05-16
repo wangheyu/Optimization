@@ -253,7 +253,7 @@ $$
 \begin{eqnarray}
 f(x) &=& \sum_{i = 1}^n c_ix_i + 0\cdot z\\
 &=& \sum_{i=1}^nc_i(x_i^+ - x_i^-) + 0\cdot z\\
-&=& \sum_{i = 1}^nc_ix_i^+\sum_{i = 1}^n(-c_i)x_i^-+0\cdot z,
+&=& \sum_{i = 1}^nc_ix_i^+ + \sum_{i = 1}^n(-c_i)x_i^-+0\cdot z,
 \end{eqnarray}
 $$
 重新整理一下，现令
@@ -296,7 +296,7 @@ $$
 \min & x_1 - 2x_2+5x_6-5x_7,\\
 \mbox{s.t.}&x_1 - x_4 - x_6 + x_7 = 6,\\
 &2x_2 + x_6 - x_7 + x_5 = 2,\\
-&x_1, x_2, x_3, x_4, x_5, x_6, x_7 \geq 0.
+&x_1, x_2, x_4, x_5, x_6, x_7 \geq 0.
 \end{array}
 \right.
 $$
