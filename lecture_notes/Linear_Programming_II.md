@@ -260,7 +260,7 @@ $$
 $$
 在上述各下降分量中，必有一个最先达到零（下降速率相同），那个就是我们选择的$p$。也即
 $$
-p = \mbox{argmin}\{\frac{(x_B)_i}{d_i}, i \in \mathcal{B}, d_i > 0\}.
+p = \mbox{argmin} \{\frac{(x_B)_i}{d_i}, i \in \mathcal{B}, d_i > 0\}.
 $$
 而同时
 $$
