@@ -14,7 +14,7 @@ $$
 $$
 （我们仍然保持LICQ，因此$T_\Omega(x^*)$和$\mathcal{F}(x^*)$是一致的。这里$w \in \mathcal{F}(x^*)$首先表明从一阶信息看，$w$是在$x^*$邻域内的$\Omega$部分的，也即$\forall i \in \mathcal{E}$，有$\nabla c_i(x^*) = 0$。而对$\forall i \in \mathcal{A}(x^*) \cap \mathcal{I}$，有$\nabla c_i(x^*)^Tw \geq 0$，这里注意
 $$
-w^T\nabla f(x^*) = \sum_{i \in \mathcal{A}(x^*)} w^T\nabla c_i(x^*),
+w^T\nabla f(x^*) = \sum_{i \in \mathcal{A}(x^*)} w^T\lambda_i \nabla c_i(x^*),
 $$
 对$i \in \mathcal{E}$项，右端部分已经为零。对于$i \in \mathcal{A}(x^*)\cap\mathcal{I}$且$\lambda_i = 0$项，右端部分也为零。所以只要提取$\lambda_i > 0$，且$\nabla c_i(x^*)^Tw = 0$的方向，就能确保把全部不确定，也就是$w^T\nabla f(x^*) = 0$的方向都提取出来。）
 
@@ -190,7 +190,7 @@ $$
 $$
 确实是可行域的边缘切线，我们现在要判定沿这条边缘切线，目标函数是上升还是下降，因为一阶信息在这里退化了，所以要进一步考虑二阶信息。
 $$
-w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)w = 
+\forall w\neq 0,\quad w^T\nabla_{xx}^2\mathcal{L}(x^*, \lambda^*)w = 
 [0 \quad w_2]\left[
 \begin{array}{cc}
 -0.8 & 0 \\
@@ -363,7 +363,7 @@ f(z_k) - f(x^*) = t_k \nabla f(x^*)^Td + o(t_k) \geq 0.
 $$
 两边同除以$t_k$，并取极限$k \to \infty$，有
 $$
-\nabla f(x^*)^T \geq 0.
+\nabla f(x^*)^T d\geq 0.
 $$
 由于$d$是$T_\Omega(x^*)$内任何向量，故事实上对$\forall d \in T_{\Omega}(x^*)$，有
 $$
