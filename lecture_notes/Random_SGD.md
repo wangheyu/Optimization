@@ -206,8 +206,7 @@ $$
 $$
 \begin{equation}
   P(\xi \leq x) = F(x), x \in \mathbb{R}.
-  \label{eq::def_cdf}
-\end{equation}
+  \end{equation}
 $$
 这里，一方面，我们要从算法保证（证明）$X$确实服从指定分布$F(x)$；另一方面，对于一个实际的产生的抽样结果，也要能通过指定的统计检验。
 
@@ -222,7 +221,7 @@ $$
 \begin{equation}
   F^{-1}: [0, 1] \mapsto \mathbb{R}, F^{-1}(y) = \inf \{x \left| F(x)
   \geq y \right.\},
-  \label{eq::inv_cdf}
+  
 \end{equation}
 $$
 并指出，若随机变量$\eta$服从$[0, 1]$上的均匀分布，$F(x)$是指定分布的CDF，令$\xi = F^{-1}(\eta)$，则$\xi$服从$F(x)$。所以我们算法的设计思路就是对一个均匀分布的随机数序列$U$，求其逆变换$X
@@ -248,7 +247,7 @@ $$
 x_n\}$，有$f(x) = 0$，故我们可以认为$F_{-1} = 0$。现在对$\eta \sim U(0, 1)$，必有$0 \leq k \leq n$，满足
 $$
 \begin{equation}
-  \label{eq::def_dis_pmf}
+  
 F_{k - 1} < \eta \leq F_k,
 \end{equation}
 $$
@@ -258,7 +257,7 @@ $$
   \xi = \min\left\{x_k\left|\eta \leq \sum_
 
 {i = 0}^kf(x_i)\right.\right\}, \eta \sim U(0, 1).
-  \label{eq::dis_inv}
+  
 \end{equation}
 $$
 在具体的抽取算法中，这一过程就是查表。对于较长的表，可以采用二分查找。
@@ -270,21 +269,21 @@ $$
 $$
 \begin{equation}
     F(x) = P(\xi \leq x), x \in \mathbb{R}
-    \label{eq::df}
+    
   \end{equation}
 $$
 为累计分布函数，若存在某个非负的可积函数$f(x)$，满足
 $$
 \begin{equation}
     F(x) = \int_{-\infty}^x f(y) dy, \forall x \in \mathbb{R},
-    \label{eq::pdf}
+    
   \end{equation}
 $$
 则称$f(x)$为对应随机分布的概率密度函数，简称为PDF。此时，
 $$
 \begin{equation}
     f(x) = F'(x).
-    \label{eq::pdf2cdf}
+    
   \end{equation}
 $$
 注意到我们之前定义的针对离散型随机变量的PMF，事实上和这里定义的PDF并无冲突，甚至可以看作是PDF的一个特例（这里要看你如何定义积分了）。关于逆变换的定义也可以完全沿用。对于连续分布的采样抽取，如果存在容易计算的逆变换解析表达式$F^{-1}(y)$，那么对于$U(0, 1)$的均匀分布的随机变量$\eta$，直接计算$F^{-1}(\eta)$即可。也就是说，
@@ -292,7 +291,7 @@ $$
 \begin{equation}
   \xi = \min\left\{x \left|\eta \leq \int_{-\infty}^x f(t)
   dt\right.\right\} = F^{-1}(\eta), \eta \sim U(0, 1),
-  \label{eq::inv}
+  
 \end{equation}
 $$
 则$\xi \sim f(x)$。下表给出了常用分布及逆分布。
@@ -318,7 +317,6 @@ $$
   + \mathrm{sign}(y - \frac{1}{2})\sigma\left(t
 
   - \frac{c_0 + c_1 t + c_2 t^2}{1 + d_1 t + d_2 t^2 + d_3 t^3}\right),
-    \label{eq::approx_normal}
     \end{equation}
 $$
 其中
@@ -333,3 +331,101 @@ $$
 \end{array}
 $$
 此公式绝对误差小于$0.45 \times 10^-3$。
+
+## 随机梯度下降(Stochastic Gradient Descent)
+
+这个弯转的有点大。我们讨论这么多随机性有什么用处呢？这里我不打算引入太多传统的Monte Carlo方法，而是回到一个经典的优化模型算法，梯度下降法。这个方法是我们这学期的重点之一，大家应该很熟悉了。对无约束优化问题
+$$
+\min f(x), \quad x \in \mathbb{R}^n,
+$$
+的当前迭代值$x_k$，我们下一步的前进方向设置为
+$$
+p_k = -\nabla f(x_k),
+$$
+因为这个是一阶局部信息指明的最速下降方向。在我们学习的所有方法中，这几乎是代价最小的一个方法，但是随着问题规模的提升，以及非线性的加强，即便是这个最简单的一阶方法，也可能会有“太昂贵”的时候。
+
+我们通过一个最小二乘拟合来举例。已知海量二维数据$(x_i, y_i)$，$i = 1, 2, \cdots, m$。而我们希望寻找
+$$
+y = f(x) = \sum_{j = 1}^nw_j\phi_j(x),
+$$
+其中$w_j \in \mathbb{R}$是待定系数，而$\phi_j(x): \mathbb{R} \to \mathbb{R}$是一组基底函数，$j = 1, 2, \cdots, n$。一般地，$m >> n$。这也是我们本学期的一个学习重点，对这个问题的求解，本质上就是求
+$$
+\min_{w_1, w_2, \cdots, w_n} R:=\|y - \tilde{y}\|_2^2,
+$$
+其中$\tilde{y} = (y_1, y_2, \cdots, y_m)^T$是实际数据，$y =\left(f(x_1), f(x_2), \cdots, f(x_m)\right)^T$是模型输出。或者等价地，
+$$
+\min_{w} \frac{1}{2}\sum_{i = 1}^m\left[\sum_{j = 1}^n w_j \phi_j(x) - y_j\right]^2,
+$$
+其中$w = (w_1, w_2, \cdots, w_n)^T$。对这个问题，我们详细讨论过它的求解方法，对于$m$超大的情形，二阶方法代价无法承受时，我们也可以采用梯度下降法来求解：
+$$
+\left\{
+\begin{array}{l}
+\displaystyle \nabla R_k = \left(\frac{\partial R}{\partial w_j}\right)^T = \left.\left(\sum_{i = 1}^m \left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\cdot\phi_j(x_i)\right)^T \right|_{w = w_k},\\
+w_{k+1} = w_k - \alpha \nabla R_k.
+\end{array}
+\right.
+$$
+这个方法在机器学习等领域，被称为批量梯度下降法(Batch Gradient Descent, BGD)。它的实际效果不错，但问题是它的每一步迭代，都需要用到全部的拟合数据$(x_i, y_i)$，$i = 1, 2, \cdots, m$。在机器学习的实际问题中，共同点是：
+
+1. 海量数据；
+2. $x$是超高维向量；
+3. $y_i$不准确，混杂了各种噪声数据，很难清洗。
+
+BGD方法，每次不但代价巨大，而且不加区别地接受了全部数据的信息，包括噪声数据，总之，吃力不讨好。
+
+**例** 构建测试数据：
+$$
+y_i = x_i^2 + \xi,
+$$
+其中$\xi \sim N(0, 0.1)$模拟噪声，$x_i \sim U(0， 10)$随机生成。用于回归的基底为：
+$$
+f(x) = w_1 + w_2x + w_3x^2.
+$$
+（你可以将这个模型看作是
+$$
+f(x) = \sum_{j = 1}^n w_j \phi_j(x) + b
+$$
+的形式，这里$b$是一个常数，通常称为置偏(bias)。）
+
+我们这里继续用最小二乘误差来做拟合：
+$$
+R(x_i)=\|f(x_i) - y_i\|_2^2, i = 1, 2, \cdots, m,
+$$
+这个函数有时又被称为损失函数(loss function)，当然这只是一种形式。用BGD来最小化这个残量，我们可以采用这样一种具体的迭代格式以确保稳定性：
+$$
+\left\{
+\begin{array}{l}
+w_{k + 1} = w_k + \eta p_k,\\
+\displaystyle p_k = -\frac{\nabla R_k}{\|\nabla R_k\|_2},\\
+\displaystyle \nabla R_k = \left.\frac{\partial R}{\partial w}\right|_{w = w_k}.
+\end{array}
+\right.
+$$
+这里$\eta$有时被称为“学习率”。一般$\eta$是一个小量（$10^{-2}\sim 10^{-4}$之类）。我们可以在数值模拟过程中进一步观察。我们可以看到，即便在这样的简单问题中，计算代价已经比较显著，更严重的是，我们观察到随着迭代接近最优解，收敛速度会越来越慢，这是因为全局噪声数据的比重会随着接近真解而越来越高。
+
+有没有办法同时解决以上两个问题？这似乎是违背我们之前的“No free lunch”原则的。因为我们实际上要求减小计算代价的同时，提高计算精度，还要提升收敛效率。除非，我们能够发展出新的理论依据。
+
+**随机梯度下降法(Stochastic GD, SGD)**
+
+我们首先放弃每一次更新$w_k$都计算每一对$(x_i, y_i)$数据，而是对每一对$(x_i, y_i)$数据，都对$w_k$做一个更新。这里$i = 1, 2, \cdots, m$。也即
+$$
+\left\{
+\begin{array}{l}
+\displaystyle\nabla R_k^{(i)} = \left.\left(\left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\phi_j(x_i)\right)^T\right|_{w = w_k}, j = 1, 2, \cdots, n; i = 1, 2, \cdots, m.\\
+w_{k + 1}^{(i)} = w_k^{(i)} - \alpha \nabla R_k^{(i)}.
+\end{array}
+\right.
+$$
+也就是当我们完整读完一次全部数据，我们实际上已经对$w_k$改进了$m$次，尽管每一次都只在一个分量上做了修改。这种做法本质上就是我们之前简要提及的坐标交替法。在低维问题时，这个方法不如最速下降法，然而在高维例子下，我们看到，尽管它不能保证残量单调，但它的实际收敛效率远高于BGD，甚至收敛精度也有所提高，因为它不会在每一步都引入全部的噪声。
+
+在这个方法的启示下，我们进一步提出，每一次改进的分量方向，都做一个随机采样，也即在总共$m$个样本中，每次随机抽取其中$m_s$个样本，拿来做梯度下降。这里$m_s << m$是一个小量。也即
+$$
+\left\{
+\begin{array}{l}
+\displaystyle\nabla R_k = \left(\frac{\partial R}{\partial w_j}\right)^T = \left.\left(\sum_{i = 1}^{m_s}\left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\phi_j(x_i)\right)^T\right|_{w = w_k}, j = 1, 2, \cdots, n.\\
+w_{k + 1} = w_k - \alpha \nabla R_k.
+\end{array}
+\right.
+$$
+这就是Bottou 1998提出的随机梯度下降法的主要思想。从理论上看，这个方法在超高维数和海量数据时，仍然能在概率空间搜索的意义上保持梯度下降的一阶最优性和收敛性，是一个非常理想的方法。而且类似的思想还可以很容易地向更高阶（的概率空间）推广。
+
