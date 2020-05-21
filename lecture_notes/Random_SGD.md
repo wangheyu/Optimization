@@ -1,4 +1,6 @@
-# 伪随机数的产生
+# 随机数和随机梯度下降法
+
+## 伪随机数的产生
 
 我们称计算机算法产生的随机数为伪随机数。伪随机数在分布特性上接近真随机数，因此在一些随机模拟的算法中可以代替真随机数提供随机性。但要注意，计算机作为一个确定性系统，通过算法产生的伪随机数永远也不可能是真随机数，也就是实际上，它是有规律的，只是这种规律可能由于信息不对成，埋藏的比较深。伪随机数的统计学特征越接近真随机数，我们称它的质量越好。高质量的伪随机数，必然需要更大的计算代价。所以很多时候，我们需要根据实际问题的需求来选择合适的随机数生成器。
 
@@ -368,7 +370,7 @@ $$
 这个方法在机器学习等领域，被称为批量梯度下降法(Batch Gradient Descent, BGD)。它的实际效果不错，但问题是它的每一步迭代，都需要用到全部的拟合数据$(x_i, y_i)$，$i = 1, 2, \cdots, m$。在机器学习的实际问题中，共同点是：
 
 1. 海量数据；
-2. $x$是超高维向量；
+2. $w$是超高维向量；
 3. $y_i$不准确，混杂了各种噪声数据，很难清洗。
 
 BGD方法，每次不但代价巨大，而且不加区别地接受了全部数据的信息，包括噪声数据，总之，吃力不讨好。
@@ -411,7 +413,7 @@ $$
 $$
 \left\{
 \begin{array}{l}
-\displaystyle\nabla R_k^{(i)} = \left.\left(\left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\phi_j(x_i)\right)^T\right|_{w = w_k}, j = 1, 2, \cdots, n; i = 1, 2, \cdots, m.\\
+\displaystyle\nabla R_k^{(i)} = \left.\left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\phi_j(x_i)\right|_{w = w_k}, j = 1, 2, \cdots, n; i = 1, 2, \cdots, m.\\
 w_{k + 1}^{(i)} = w_k^{(i)} - \alpha \nabla R_k^{(i)}.
 \end{array}
 \right.
@@ -422,7 +424,7 @@ $$
 $$
 \left\{
 \begin{array}{l}
-\displaystyle\nabla R_k = \left(\frac{\partial R}{\partial w_j}\right)^T = \left.\left(\sum_{i = 1}^{m_s}\left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\phi_j(x_i)\right)^T\right|_{w = w_k}, j = 1, 2, \cdots, n.\\
+\displaystyle\nabla R_k = \left(\frac{\partial R}{\partial w_j}\right)^T = \left.\left(\sum_{i = 1}^{m_s}\left[\sum_{j = 1}^n w_j \phi_j(x_i) - y_i\right]\phi_j(x_i)\right)^T\right|_{w = w_k}, \\
 w_{k + 1} = w_k - \alpha \nabla R_k.
 \end{array}
 \right.
