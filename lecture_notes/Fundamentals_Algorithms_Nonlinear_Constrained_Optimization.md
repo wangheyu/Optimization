@@ -42,8 +42,8 @@ $$
    \begin{eqnarray}
    &\min& \frac{1}{2}p^T\nabla_{xx}^2\mathcal{L}(x_k, \lambda_k)p + \nabla f(x_k)^Tp, \tag{15.3a}\\
    &\mbox{s. t.}& \nabla c_i(x_k)^Tp + c_i(x_k) = 0, i \in \mathcal{E}, \tag{15.3b}\\
-   && \nabla c_i(x_k)^Tp + c_i(x_k) = 0, i \in \mathcal{I}, \tag{15.3c}
-   \end{eqnarray}  
+   && \nabla c_i(x_k)^Tp + c_i(x_k) \geq 0, i \in \mathcal{I}, \tag{15.3c}
+   \end{eqnarray}
    $$
    其中$\mathcal{L}$是(12.33)所定义的Lagrange函数。这是一个二次规划问题，它的解$p$用来将$x_k$更新到$x_k + p$。对它的进一步改进可以考虑施加一个信任域半径，从而确保收敛的稳定性。也可以考虑对$\nabla_{xx}^2 \mathcal{L}$采用拟Newton逼近以提高计算效率。
 
