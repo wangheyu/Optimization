@@ -9,7 +9,7 @@
 提出评价函数本质上是试图将约束优化问题转成一个无约束优化问题。将目标下降和约束违背整合成一个评价目标。比如针对(15.1)提出
 $$
 \begin{equation}
-\phi_1(x; \mu) = f(x) + \mu \sum_{i \in \mathcal{E}}|c_i(x)| + \mu\sum_{i \in \mathcal{I}}|c_i(x)|^-, \tag{15.24}
+\phi_1(x; \mu) = f(x) + \mu \sum_{i \in \mathcal{E}}|c_i(x)| + \mu\sum_{i \in \mathcal{I}}[c_i(x)]^-, \tag{15.24}
 \end{equation}
 $$
 这里记号$[z]^- = \max\{0, -z\}$，正数$\mu$称为惩罚因子，(15.24)称为$l1$惩罚函数。尽管这种惩罚函数是不光滑的，但它具有精确性(exact)。
@@ -18,7 +18,7 @@ $$
 
 对$l1$评价函数$\phi_1(x; \mu)$，令
 $$
-\mu^* = \max\{|\lambda^*|, i \in \mathcal{E} \cup \mathcal{I}\},
+\mu^* = \max\{|\lambda_i^*|, i \in \mathcal{E} \cup \mathcal{I}\},
 $$
 这里$\lambda_i^*$是对应局部最优解$x^*$的Lagrange乘子，则可以证明它是精确的（定理17.3）。由于$\lambda^*$不是预知的，故在实际算法中，我们通过自适应调节使惩罚因子充分大。
 
@@ -30,7 +30,7 @@ $$
 $$
 注意这里$2-$范数项并没有平方，这使得它成为精确但不光滑评价函数。它在$c(x) = 0$点的导数不存在。
 
-即光滑又精确的评价函数也是存在的。对等值约束，有Fletcher增广Lagrange函数
+既光滑又精确的评价函数也是存在的。对等值约束，有Fletcher增广Lagrange函数
 $$
 \begin{equation}
 \phi_F(x; \mu) = f(x) - \lambda(x)^Tc(x) + \frac{1}{2} \mu \sum_{i \in \mathcal{E}} c_i(x)^2,
@@ -71,7 +71,7 @@ $$
 
 **定义 15.2**
 
-1. 第$k$步的目标对$(f_k, h_k)$称为是控制另一个目标对$(f_l, h_l)$的，如果$f_k \leq g_l$且$h_k \leq h_l$；（即两个目标都更好。）
+1. 第$k$步的目标对$(f_k, h_k)$称为是控制另一个目标对$(f_l, h_l)$的，如果$f_k \leq f_l$且$h_k \leq h_l$；（即两个目标都更好。）
 2. 一个筛选有一系列目标对$(f_l, h_l)$构成，其中任两个目标对互相之间都不存在控制；
 3. 一个迭代值$x_k$被称为是被筛选接受的，如果$(f_k, h_k)$没有被筛选中的任何一个目标对所控制。
 
