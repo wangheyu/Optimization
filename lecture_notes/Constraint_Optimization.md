@@ -427,9 +427,9 @@ $$
 
 这里(12.34e)其实留下了一个漏洞，即若$\lambda_i$和$c_i(x^*)$都等于零，会发生上述哪一种情况？这种情况其实需要进一步分析。不过我们这里先用一种简单粗暴的方式排斥这种例外。
 
-**定义 12.5 严格互补(strict complementarity)** 对(12.1)的局部解$x^*$和满足(12.30)的向量$x^*$，我们称严格互补条件成立，若对每一个$i \in \mathcal{I}$，$\lambda^*$和$c_i(x^*)$始终有且仅有一个为零。或者等价地，$\lambda_i^* > 0$对全部$i \in \mathcal{I} \cap \mathcal{A}(x^*)$成立。
+**定义 12.5 严格互补(strict complementarity)** 对(12.1)的局部解$x^*$和满足(12.34)的向量$x^*$，我们称严格互补条件成立，若对每一个$i \in \mathcal{I}$，$\lambda^*$和$c_i(x^*)$始终有且仅有一个为零。或者等价地，$\lambda_i^* > 0$对全部$i \in \mathcal{I} \cap \mathcal{A}(x^*)$成立。
 
-一般地，对给定的问题(12.1)，和解$x^*$，可能有多个向量$\lambda^*$满足(12.30)，但当LICQ成立时，$\lambda^*$是唯一的。这一点由
+一般地，对给定的问题(12.1)，和解$x^*$，可能有多个向量$\lambda^*$满足(12.34)，但当LICQ成立时，$\lambda^*$是唯一的。这一点由
 $$
 \nabla f(x^*) = \sum_{i \in \mathcal{A}(x^*)} \lambda_i^* \nabla c_i(x^*)
 $$
@@ -460,9 +460,9 @@ $$
 $$
 因此，严格地说，$\lambda_i^*\|\nabla c_i(x^*)\|$才是第$i$个约束对解目标值的敏感影响因子。
 
-**定义 12.8** 令$x^*$是问题(12.1)的解，且满足KKT条件(12.34)。称不等值约束$c_i(x)$是强约束的(strongly active)或绑定的(binding)，若有满足(12.34)的$\lambda^*$使$i \in \mathcal{A}(x^*)$且$\lambda_i^* > 0$。称$c_i(x)$使弱活跃的(weakly active)，若对所有满足(12.34)的$\lambda^*$，有$i \in \mathcal{A}(x^*)$且$\lambda_i^* = 0$。
+**定义 12.8** 令$x^*$是问题(12.1)的解，且满足KKT条件(12.34)。称不等值约束$c_i(x)$是强约束的(strongly active)或绑定的(binding)，若有满足(12.34)的$\lambda^*$使$i \in \mathcal{A}(x^*)$且$\lambda_i^* > 0$。称$c_i(x)$是弱活跃的(weakly active)，若对所有满足(12.34)的$\lambda^*$，有$i \in \mathcal{A}(x^*)$且$\lambda_i^* = 0$。
 
-这个定义实际上和定义12.7讲述的是同样的事。
+这个定义实际上和定义12.5讲述的是同样的事。
 
 为了证明定理12.1，我们需要再做一些技术准备。
 
