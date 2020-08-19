@@ -523,7 +523,7 @@ $$
 所以
 $$
 \begin{equation}
-x_{k + 1} - x^* = x_0 + P_k^*(A) - x^* = \left[I + P_k^*(A)A\right](x_0 - x^*).
+x_{k + 1} - x^* = x_0 + P_k^*(A)r_0 - x^* = \left[I + P_k^*(A)A\right](x_0 - x^*).
 \tag{5.30}
 \end{equation}
 $$
