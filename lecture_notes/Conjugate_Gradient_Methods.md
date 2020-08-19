@@ -473,7 +473,7 @@ x_{k + 1} &=& x_0 + \alpha_0 p_0 + \cdots + \alpha_kp_k \\
 \tag{5.25}
 \end{eqnarray}
 $$
-其中$\gamma_i$是在基$\{\gamma_0, A\gamma_0, \cdots, A^k\gamma_0\}$下的标出系数。现定义$P_k^*(\cdot)$为系数为$\gamma_0, \gamma_1, \cdots, \gamma_k$的$k$次多项式，则
+其中$\gamma_i$是在基$\{r_0, Ar_0, \cdots, A^kr_0\}$下的标出系数。现定义$P_k^*(\cdot)$为系数为$\gamma_0, \gamma_1, \cdots, \gamma_k$的$k$次多项式，则
 $$
 P_k^*(A) = \gamma_0I + \gamma_1 A + \cdots + \gamma_kA^k,
 $$
