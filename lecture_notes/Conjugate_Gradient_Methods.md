@@ -434,7 +434,7 @@ $$
 
 while $r_k \neq 0$
 $$
-\begin{equation}\alpha_k \leftarrow -\frac{r_k^Tr_k}{p_k^TAp_k};\tag{5.24a}\end{equation}
+\begin{equation}\alpha_k \leftarrow \frac{r_k^Tr_k}{p_k^TAp_k};\tag{5.24a}\end{equation}
 $$
 
 $$
@@ -473,7 +473,7 @@ x_{k + 1} &=& x_0 + \alpha_0 p_0 + \cdots + \alpha_kp_k \\
 \tag{5.25}
 \end{eqnarray}
 $$
-其中$\gamma_i$是在基$\{\gamma_0, A\gamma_0, \cdots, A^k\gamma_0\}$下的标出系数。现定义$P_k^*(\cdot)$为系数为$\gamma_0, \gamma_1, \cdots, \gamma_k$的$k$次多项式，则
+其中$\gamma_i$是在基$\{r_0, Ar_0, \cdots, A^kr_0\}$下的标出系数。现定义$P_k^*(\cdot)$为系数为$\gamma_0, \gamma_1, \cdots, \gamma_k$的$k$次多项式，则
 $$
 P_k^*(A) = \gamma_0I + \gamma_1 A + \cdots + \gamma_kA^k,
 $$
@@ -523,11 +523,11 @@ $$
 所以
 $$
 \begin{equation}
-x_{k + 1} - x^* = x_0 + P_k^*(A) - x^* = \left[I + P_k^*(A)A\right](x_0 - x^*).
+x_{k + 1} - x^* = x_0 + P_k^*(A)r_0 - x^* = \left[I + P_k^*(A)A\right](x_0 - x^*).
 \tag{5.30}
 \end{equation}
 $$
-令$0 < \lambda_1 \leq \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n$是$A$的特征值，而$\nu_1, \nu_2, \cdots, \nu_n$是对应特征向量（因此两两正交），于是
+令$0 < \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n$是$A$的特征值，而$\nu_1, \nu_2, \cdots, \nu_n$是对应特征向量（因此两两正交），于是
 $$
 A = \sum_{i = 1}^n\lambda_i \nu_i \nu_i^T.
 $$
@@ -596,7 +596,7 @@ Q_r(\lambda) = \frac{(-1)^r}{\tau_1\tau_2\cdots\tau_r}(\lambda - \tau_1)(\lambda
 $$
 则有
 $$
-Q(\lambda_i) = 0, i = 1, 2, \cdots, n,
+Q_r(\lambda_i) = 0, i = 1, 2, \cdots, n,
 $$
 以及
 $$
@@ -667,7 +667,7 @@ $$
 
 while $r_k \neq 0$
 $$
-\begin{equation}\alpha_k \leftarrow -\frac{r_k^Ty_k}{p_k^TAp_k};\tag{5.39a}\end{equation}
+\begin{equation}\alpha_k \leftarrow \frac{r_k^Ty_k}{p_k^TAp_k};\tag{5.39a}\end{equation}
 $$
 
 $$
